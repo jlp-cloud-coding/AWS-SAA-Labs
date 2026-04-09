@@ -15,6 +15,6 @@ This lab demonstrates the use of **Infrastructure as Code (IaC)** to provision a
 * **Resource Cleanup:** Ensuring all associated resources (EBS volumes, etc.) are terminated upon stack deletion to optimize costs.
 
 ## How to Use
-1. Upload the `template.yaml` file to the AWS CloudFormation console.
-2. Specify the required parameters (e.g., KeyPair name).
+1. Upload the `ec2instance.yaml` file to the AWS CloudFormation console.
+2. Specify the required parameters (e.g., LatestAmiId, SSHandWebLocation).
 3. Create the stack and monitor the events tab for resource creation.
