@@ -9,6 +9,7 @@
 7. Initially alarm status would be "ok":
    
 <img width="958" height="356" alt="1" src="https://github.com/user-attachments/assets/473fb608-3fb5-4bca-b4e9-f94e490251fb" />
+
 9. Go back to the EC2 browser console and Install stress using 'sudo yum install stress -y'
 10. Run stress 'stress -c 1 -t 3600'
 11. Wait for alarm to change from "ok" to "in alarm" (because of running stress we are imposing artificial load on CPU):
