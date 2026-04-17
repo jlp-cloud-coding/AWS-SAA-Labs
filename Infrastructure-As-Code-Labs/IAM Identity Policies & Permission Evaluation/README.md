@@ -38,8 +38,6 @@ The environment was deployed using AWS CloudFormation and included:
     ]
 }
 
-  ```
-
 ### Phase 3: The "DAD" Rule (Managed Policy)
 * **Action:** Deleted the inline policy and attached the Managed Policy `AllowAllS3ExceptCats`.
 * **Observation:** Sally could access `animalpics` but received a **Permission Denied** error when trying to access `catpics`.
