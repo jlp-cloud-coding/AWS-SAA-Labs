@@ -21,22 +21,18 @@ The environment was deployed using AWS CloudFormation and included:
 * **Action:** Attached an Inline Policy `s3_fulladmin.json` granting `s3:*` on all resources.
 * **Observation:** Sally successfully viewed and uploaded images to both the `catpics` and `animalpics` buckets.
 * s3_fulladmin.json:
-  ```
-  {
-   "Version":"2012-10-17",
-   "Statement":[
-      {
-         "Sid":"statement1",
-         "Effect":"Allow",
-         "Action":[
-            "s3:*"
-         ],
-         "Resource":[
-            "arn:aws:s3:::*"
-         ]
-       }
-    ]
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "s3:*",
+      "Resource": "*"
+    }
+  ]
 }
+```
 
 ### Phase 3: The "DAD" Rule (Managed Policy)
 * **Action:** Deleted the inline policy and attached the Managed Policy `AllowAllS3ExceptCats`.
