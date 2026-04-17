@@ -1,3 +1,4 @@
+```yaml
 Parameters:
   LatestAmiId:
     Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
@@ -72,3 +73,4 @@ Outputs:
     Value: !GetAtt 
       - EC2Instance
       - PublicIp 
+      ```yaml
