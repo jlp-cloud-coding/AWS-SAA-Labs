@@ -5,6 +5,8 @@ This lab demonstrates how to use Service Control Policies (SCPs) to restrict S3 
 a. Go to AWS Organizations → Organizational Units
 b. Create a new OU:
 Name: Dev
+<img width="945" height="372" alt="Cretae a DEV OU" src="https://github.com/user-attachments/assets/abcf03d7-ea86-4b98-8306-a29619a998a6" />
+
 
 ## Step 2: Move Account to OU
 a. Go to Accounts
