@@ -13,7 +13,6 @@ Login to management account (iamadmin)
 Go to AWS Organizations
 Click Create Organization
 Choose All features
-<img width="1905" height="722" alt="org-1" src="https://github.com/user-attachments/assets/324bed12-e18c-4a16-b169-5e1d3000ae72" />
 
 ## Step 2: Create new Developer Account
 Go to AWS Organizations → Accounts
@@ -23,9 +22,7 @@ Account name: Developer
 Email: pavani.gorthy93+developer@gmail.com
 Submit
 
-✔ AWS automatically creates:
-
-OrganizationAccountAccessRole
+<img width="1905" height="722" alt="org-1" src="https://github.com/user-attachments/assets/324bed12-e18c-4a16-b169-5e1d3000ae72" />
 
 ## Step 3: Send invitation (conditional step)
 This step depends on how the account was added to AWS Organizations.
@@ -55,7 +52,12 @@ Account ID: Developer account ID you just created
 Role name: OrganizationAccountAccessRole
 Switch role
 
+<img width="667" height="388" alt="ORG-2" src="https://github.com/user-attachments/assets/610a0735-a124-4a17-87c3-2a7765d418ed" />
+
 ✔ You are now in Dev account
+
+<img width="952" height="312" alt="ORG-3" src="https://github.com/user-attachments/assets/513acea0-feea-49e4-bbef-c2f6af5bd48b" />
+
 
 ## Step 5: Create Manual IAM Role (Dev Account)
 I didn't have another existing account to invite. So to simulate the CrossAccount Access behaviour I used the same developer account by manually creating the role and adding general iamadmin account as the trusted entity
@@ -69,6 +71,12 @@ AdministratorAccess
 Role name:
 CrossAccountAdminRole
 Create role
+<img width="1913" height="691" alt="crossacc-1" src="https://github.com/user-attachments/assets/46444c95-3010-41ba-8be5-4128e90b4c4e" />
+
+<img width="1867" height="746" alt="crossacc-2" src="https://github.com/user-attachments/assets/e07c0082-d351-40d3-bbcf-1c52e461bd9f" />
+
+
+
 ## Step 6: Switch Role (Manual Role)
 
 From management account:
@@ -79,7 +87,9 @@ Account ID: Developer account ID
 Role name: CrossAccountAdminRole
 Click Switch
 
-✔ Access Dev account via manual role
+✔ Access Dev account via custom role you created
+<img width="1905" height="774" alt="crossacc-3" src="https://github.com/user-attachments/assets/113e3a96-59e6-4dde-8625-6ea9a7483bf7" />
+
 
 ## Step 7: Delete Manual Role (Cleanup)
 
