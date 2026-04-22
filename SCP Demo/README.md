@@ -22,21 +22,26 @@ c. Perform actions:
   - List buckets
 ✔ Confirm S3 access is working normally
 
-## Step 4: Create SCP (Deny S3)
+## Step 4: Create SCP (Allow All Except S3)
 a. Go to AWS Organizations → Policies
 b. Enable Service Control Policies
 c. Click Create policy
 Add:
 ```
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Deny",
-      "Action": "s3:*",
-      "Resource": "*"
-    }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "*",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Deny",
+            "Action": "s3:*",
+            "Resource": "*"
+        }
+    ]
 }
 ```
 ## Step 5: Attach SCP to OU
