@@ -13,6 +13,8 @@ Login to management account (iamadmin)
 Go to AWS Organizations
 Click Create Organization
 Choose All features
+<img width="1905" height="722" alt="org-1" src="https://github.com/user-attachments/assets/324bed12-e18c-4a16-b169-5e1d3000ae72" />
+
 ## Step 2: Create new Developer Account
 Go to AWS Organizations → Accounts
 Click Add account → Create account
@@ -24,6 +26,7 @@ Submit
 ✔ AWS automatically creates:
 
 OrganizationAccountAccessRole
+
 ## Step 3: Send invitation (conditional step)
 This step depends on how the account was added to AWS Organizations.
 🔹 Case 1: Invited Existing Account
