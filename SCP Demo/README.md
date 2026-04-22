@@ -54,6 +54,7 @@ Add:
 
 ## Step 5: Attach SCP to OU
 Attach the SCP to Dev OU
+<img width="956" height="377" alt="step 7 -attach this scp to the DEV OU" src="https://github.com/user-attachments/assets/e7c94b4d-2915-44fd-8473-6980f69159a8" />
 ## Step 6: Test SCP Restriction
 Switch role → Developer account
 Try:
@@ -61,8 +62,6 @@ List S3 buckets
 
 ❌ Result: Access Denied
 ✔ SCP successfully blocks S3 even with admin access
-<img width="956" height="377" alt="step 7 -attach this scp to the DEV OU" src="https://github.com/user-attachments/assets/e7c94b4d-2915-44fd-8473-6980f69159a8" />
-
 
 ## Step 7: Restore Access (Cleanup)
 a. Go to AWS Organizations → Policies
