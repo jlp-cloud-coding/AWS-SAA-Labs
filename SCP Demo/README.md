@@ -58,6 +58,9 @@ List S3 buckets
 a. Go to AWS Organizations → Policies
 b. Either: Detach the SCP and reattach FullAWSAccess
 ✔ Result: S3 access restored
+c. Empty and delete the S3 bucket "catpicscpdemo"
+d. Delete the SCP "AllowAllExceptS3"
+
 ## Key Learnings
 1. SCP applied at OU level affects all accounts inside it
 2. Explicit Deny overrides IAM permissions
