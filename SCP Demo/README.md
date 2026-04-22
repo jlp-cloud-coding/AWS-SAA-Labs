@@ -15,6 +15,8 @@ c. Click Move
 d. Place it inside:
 "Dev" OU just created in above step
 
+<img width="953" height="377" alt="move to dev ou" src="https://github.com/user-attachments/assets/a0f8a015-dec1-4437-b0df-44a924900f12" />
+
 ## Step 3: Baseline Test (Before SCP)
 a. From management account → Switch Role into Dev account
 b. Go to S3
@@ -23,6 +25,8 @@ c. Perform actions:
   - Upload files
   - List buckets
 ✔ Confirm S3 access is working normally
+
+<img width="926" height="353" alt="step 4 s3 bucket with a file in it" src="https://github.com/user-attachments/assets/c3fb9538-7266-4bed-bba0-104b3cfed876" />
 
 ## Step 4: Create SCP (Allow All Except S3)
 a. Go to AWS Organizations → Policies
@@ -46,6 +50,8 @@ Add:
     ]
 }
 ```
+<img width="958" height="379" alt="step 5 - create scp" src="https://github.com/user-attachments/assets/f5ea6767-8d49-4187-a80e-0b2f86807a1e" />
+
 ## Step 5: Attach SCP to OU
 Attach the SCP to Dev OU
 ## Step 6: Test SCP Restriction
@@ -55,6 +61,8 @@ List S3 buckets
 
 ❌ Result: Access Denied
 ✔ SCP successfully blocks S3 even with admin access
+<img width="956" height="377" alt="step 7 -attach this scp to the DEV OU" src="https://github.com/user-attachments/assets/e7c94b4d-2915-44fd-8473-6980f69159a8" />
+
 
 ## Step 7: Restore Access (Cleanup)
 a. Go to AWS Organizations → Policies
