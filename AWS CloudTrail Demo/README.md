@@ -46,6 +46,15 @@ This demo documents the setup of an Organization Trail for auditing and monitori
 S3 logs:
 <img width="958" height="377" alt="S3 Validation - 1" src="https://github.com/user-attachments/assets/d142104e-b924-41eb-8ac9-5cf2664fd5a4" />
 
+Note:
+When CloudTrail delivers logs to your S3 bucket (cloudtrail-myfirstdemo-s3-123), they aren't just plain text. They are saved as compressed Gzip files with a gz extension.
+
+Why Gzip? CloudTrail can generate a massive amount of data. Compression reduces the file size by up to 90%, which saves you significant money on S3 storage costs.
+
+How to view them: 1.  Download the file from S3 to your computer.
+2.  Use a tool like 7-Zip (Windows), Archive Utility (Mac), or the gunzip command (Linux/Terminal) to uncompress it.
+3.  Once uncompressed, you’ll have a standard .json file that you can open in any text editor like VS Code or Notepad++.
+
 CloudWatch LogStreams: Below screenshot doesn't capture logstream but just the upper part of console due to security purpose. Because logstreams have the account IDs of which account is under your OU, I didn't capture that screen.
 <img width="938" height="377" alt="CloudWatch validation" src="https://github.com/user-attachments/assets/2cfdf628-a3da-49ba-be2a-a3bfd6595618" />
 
