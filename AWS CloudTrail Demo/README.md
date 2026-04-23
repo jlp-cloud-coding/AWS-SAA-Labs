@@ -43,6 +43,15 @@ This demo documents the setup of an Organization Trail for auditing and monitori
 4.  **CloudWatch Verification:** Navigate to **Log groups > aws-cloudtraillogs-cw-myfirstdemo**. Open a Log Stream to view raw JSON events.
 5.  **Event History:** Use the CloudTrail console's **Event History** tab to quickly search for recent actions like `CreateTrail` or `CreateBucket`.
 
+S3 logs:
+<img width="958" height="377" alt="S3 Validation - 1" src="https://github.com/user-attachments/assets/d142104e-b924-41eb-8ac9-5cf2664fd5a4" />
+
+CloudWatch LogStreams:
+<img width="938" height="377" alt="CloudWatch validation" src="https://github.com/user-attachments/assets/2cfdf628-a3da-49ba-be2a-a3bfd6595618" />
+
+Event History:
+<img width="836" height="392" alt="Event History Cloud Trail" src="https://github.com/user-attachments/assets/6e486aeb-bc0a-4a47-8532-a1c0cf56fea7" />
+
 ---
 
 ## Cleanup Procedure:
