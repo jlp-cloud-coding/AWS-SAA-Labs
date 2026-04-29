@@ -21,7 +21,7 @@ This lab demonstrates how **Amazon S3 Versioning** works along with **Static Web
 * Enabled **Versioning**
 * Disabled **Block Public Access** (for demo purposes)
 
-  <img width="958" height="353" alt="create-bucket-1" src="https://github.com/user-attachments/assets/cf145a3f-60f4-46c2-aefb-79724bda77fd" />
+<img width="958" height="353" alt="create-bucket-1" src="https://github.com/user-attachments/assets/cf145a3f-60f4-46c2-aefb-79724bda77fd" />
 
 
 ---
@@ -61,7 +61,7 @@ This lab demonstrates how **Amazon S3 Versioning** works along with **Static Web
 
   * `index.html`
   * `img/` folder
-  * `img/cat.jpg`
+  * `img/catname.jpg`
  
  <img width="931" height="373" alt="hide-versioning-2" src="https://github.com/user-attachments/assets/301db675-7a31-467d-8f32-b9648ee9fbbd" />
 
@@ -72,7 +72,7 @@ This lab demonstrates how **Amazon S3 Versioning** works along with **Static Web
 
 #### 🔹 Initial Upload (show versioning toggle on)
 
-* `cat.jpg` → Version ID: `v1`
+* `catname.jpg` → Version ID: `v1`
  <img width="950" height="374" alt="show-versions-3" src="https://github.com/user-attachments/assets/48e4b106-961c-4909-bbd0-77a54df19299" />
 
 #### 🔹 Initial Upload (show versioning toggle off)
@@ -93,7 +93,7 @@ This lab demonstrates how **Amazon S3 Versioning** works along with **Static Web
 ### 6. Delete Object
 
 * Toggle versioning off in UI
-* Deleted `cat.jpg`
+* Deleted `catname.jpg`
 * S3 created a **Delete Marker**
 <img width="934" height="371" alt="delete marker added - 7" src="https://github.com/user-attachments/assets/15d5792b-a745-4310-bac1-7dd218e0e618" />
 
