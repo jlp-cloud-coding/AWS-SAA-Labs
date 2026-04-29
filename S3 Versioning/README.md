@@ -92,7 +92,7 @@ This lab demonstrates how **Amazon S3 Versioning** works along with **Static Web
 
 ### 6. Delete Object
 
-* Toggle versioning off in UI
+* Toggle show versions off
 * Deleted `catname.jpg`
 * S3 created a **Delete Marker**
 <img width="934" height="371" alt="delete marker added - 7" src="https://github.com/user-attachments/assets/15d5792b-a745-4310-bac1-7dd218e0e618" />
