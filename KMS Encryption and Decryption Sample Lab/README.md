@@ -56,6 +56,7 @@ Using AWS CloudShell:
 <img width="959" height="335" alt="key_created" src="https://github.com/user-attachments/assets/8ee4523e-3184-4f93-8c74-84d102c14ca6" />
 
 ---
+# Navigate to CloudShell command prompt via AWS Management Console
 
 ## Step 1: Create a File
 
