@@ -76,7 +76,6 @@ aws kms encrypt \
   --query CiphertextBlob \
   | base64 --decode > not_a_message.enc
 ```
-<img width="943" height="383" alt="encrypted_Cipher_text" src="https://github.com/user-attachments/assets/7ff75e31-b392-470d-9664-0d906760bc9c" />
 
 ---
 
@@ -85,8 +84,9 @@ aws kms encrypt \
 ```bash
 cat not_a_message.enc
 ```
+<img width="943" height="383" alt="encrypted_Cipher_text" src="https://github.com/user-attachments/assets/7ff75e31-b392-470d-9664-0d906760bc9c" />
 
-👉 Output will look like random/unreadable format
+Output will look like random/unreadable format
 
 ---
 
@@ -99,7 +99,6 @@ aws kms decrypt \
   --query Plaintext \
   | base64 --decode > decryptedmessage.txt
 ```
-<img width="950" height="377" alt="decrypted_plain_text" src="https://github.com/user-attachments/assets/9fc5948e-e1c0-4f5f-85dd-185c85f362f4" />
 
 ---
 
@@ -114,17 +113,17 @@ cat decryptedmessage.txt
 ```
 this is a top secret message for the ruler
 ```
-
+<img width="950" height="377" alt="decrypted_plain_text" src="https://github.com/user-attachments/assets/9fc5948e-e1c0-4f5f-85dd-185c85f362f4" />
 ---
 
-## 🧠 Key Concepts
+## Key Concepts
 
 * **Direct KMS Encryption**
 
   * Used for small data (< 4KB)
   * No DEK involved
 
-* **KMS Key**
+* **KMS Key (KEK/Key Encryption Key)**
 
   * Used directly to encrypt/decrypt data
 
