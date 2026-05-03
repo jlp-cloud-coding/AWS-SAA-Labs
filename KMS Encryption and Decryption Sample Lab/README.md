@@ -43,10 +43,10 @@ Using AWS CloudShell:
 * A KMS Key created
 * You can provide the key_id or Alias created (e.g., `alias/secret`)
 
-# Configure Key: 
+Configure Key: 
 <img width="953" height="376" alt="configurekey" src="https://github.com/user-attachments/assets/30faceb8-045a-4b6e-85b0-9afca32ddce1" />
 
-# Alias:
+Alias:
 <img width="957" height="374" alt="alias-step2" src="https://github.com/user-attachments/assets/53c6a7f7-da60-4586-a571-9abd7eb0b0c7" />
 
 <img width="947" height="374" alt="step4" src="https://github.com/user-attachments/assets/70f5662d-52a7-4dd1-8e0b-bf0a39a1f750" />
