@@ -49,11 +49,11 @@ Using AWS CloudShell:
 # Alias:
 <img width="957" height="374" alt="alias-step2" src="https://github.com/user-attachments/assets/53c6a7f7-da60-4586-a571-9abd7eb0b0c7" />
 
-<img width="959" height="335" alt="key_created" src="https://github.com/user-attachments/assets/8ee4523e-3184-4f93-8c74-84d102c14ca6" />
-
 <img width="947" height="374" alt="step4" src="https://github.com/user-attachments/assets/70f5662d-52a7-4dd1-8e0b-bf0a39a1f750" />
 
 <img width="959" height="380" alt="step3" src="https://github.com/user-attachments/assets/30d63ace-a870-4a81-9a3b-a99b2fc86d06" />
+
+<img width="959" height="335" alt="key_created" src="https://github.com/user-attachments/assets/8ee4523e-3184-4f93-8c74-84d102c14ca6" />
 
 ---
 
