@@ -1,4 +1,4 @@
-# 🔐 S3 Object Encryption Lab (SSE-S3, SSE-KMS, AWS-Managed vs Customer-Managed KMS Keys, Role Separation)
+# S3 Object Encryption Lab (SSE-S3, SSE-KMS, AWS-Managed vs Customer-Managed KMS Keys, Role Separation)
 
 This lab demonstrates Amazon S3 encryption behavior using:
 
