@@ -10,7 +10,7 @@ This lab demonstrates Amazon S3 encryption behavior using:
 
 ---
 
-# 📌 Overview
+# Overview
 
 We explored:
 
@@ -50,7 +50,7 @@ Uploaded Object 1 with:
 
 ---
 
-# 🔐 Step 3: SSE-KMS with AWS-Managed Key
+# Step 3: SSE-KMS with AWS-Managed Key
 
 Uploaded Object 2 with:
 
