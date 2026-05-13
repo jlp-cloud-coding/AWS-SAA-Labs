@@ -36,38 +36,54 @@ Important concepts:
 ## 1. Create an S3 Bucket
 
 ```
-aws s3 mb s3://my-presign-demo-bucket
+aws s3 mb s3://demofruitsbucket100
 ```
+
+<img width="927" height="349" alt="s3Bucket" src="https://github.com/user-attachments/assets/669d6248-1f59-4451-b6c8-3921d14e6e5b" />
+
 
 2. Upload an Object
 ```
 aws s3 cp image.jpg s3://demofruitsbucket100/
 ```
+Verify that the image object was uploaded successfully using the console Open.
 
-Verified that the image object was uploaded successfully.
+<img width="934" height="358" alt="step1 Open Authenticated" src="https://github.com/user-attachments/assets/ac5e909e-f8ad-4663-92cf-0c2e54235cf4" />
+
+Also verify that Object URL doe not authenticate user to view the image since bucket is not made public
+
+<img width="575" height="212" alt="step2 Object URL Unauthenticated" src="https://github.com/user-attachments/assets/99a7686e-9816-40ea-aa86-fc6af8ee66d3" />
 
 3. Generate a Presigned URL (180 seconds)
 ```
 aws s3 presign s3://demofruitsbucket100/image.jpg --expires-in 180
 ```
 
-Observation:
+<img width="917" height="396" alt="Test 1 Presign URL Generate" src="https://github.com/user-attachments/assets/c0ccf6b5-5202-486b-ac56-e1c3cf5d4e4b" />
+
+
+## Observation:
 
 Successfully opened the private image using browser
 Bucket itself remained private
 Access worked temporarily
 
 4. Generate Another Presigned URL (with expiry time set to longer duration in my case 1 hour)
-aws s3 presign s3://my-presign-demo-bucket/cat.jpg --expires-in 3600
+```
+aws s3 presign s3://demofruitsbucket100/image.jpg --expires-in 3600
+```
 
-Observation:
+<img width="940" height="272" alt="test 5 unknown object presigned url cloudshell" src="https://github.com/user-attachments/assets/54a4c67b-f772-432e-9139-e4ff8dc5a4c4" />
 
-URL worked successfully
-Access remained valid while IAM permissions were valid
+
+## Observation:
+
+URL worked successfully.
+Access remained valid while IAM permissions were valid.
 
 5. Add Explicit Deny Policy to IAM User
 
-Added inline deny policy named denyS3 to the iamadmin IAM user.
+Added inline deny policy named denyS3 to the IAM user:
 
 Example policy:
 ```
@@ -86,12 +102,16 @@ Example policy:
 
 6. Test Existing Presigned URL Again
 
-Observation:
+## Observation:
 
-Previously generated presigned URL stopped working immediately
-Access Denied error occurred
+Previously generated presigned URL stopped working immediately.
+Access Denied error occurred.
 
-Important concept:
+<img width="957" height="182" alt="test5 unknown object presigned url" src="https://github.com/user-attachments/assets/0a7aaf2b-cd46-4a39-8b61-4c2587d1c522" />
+
+
+
+## Important concept:
 
 Presigned URLs depend on the CURRENT permissions of the identity that created them.
 
@@ -100,27 +120,31 @@ Even though, URL expiration time had NOT expired, the URL still failed because:
 Explicit Deny overrides Allow permissions
 
 7. Generate Presigned URL Despite Deny Policy on iamuser
-aws s3 presign s3://my-presign-demo-bucket/cat.jpg --expires-in 3600
+```
+aws s3 presign s3://demofruitsbucket100/image.jpg --expires-in 3600
+```
 
-Observation:
+## Observation:
 
-URL generation still succeeded
-Opening the URL failed with Access Denied
+URL generation still succeeded.
+Opening the URL failed with Access Denied.
 
-Important concept:
+## Important concept:
 
 AWS CLI does NOT validate object access while generating the URL.
 Actual authorization happens only when the URL is used.
 
 8. Generate Presigned URL for Non-Existent Object
-aws s3 presign s3://my-presign-demo-bucket/doesnotexist.jpg --expires-in 3600
+```
+aws s3 presign s3://demofruitsbucket100/doesnotexist.jpg --expires-in 3600
+```
 
-Observation:
+## Observation:
 
-URL was generated successfully
-Accessing the URL failed because the object did not exist
+URL was generated successfully.
+Accessing the URL failed because the object did not exist.
 
-Important concept:
+## Important concept:
 
 AWS does not verify object existence during presigned URL generation.
 
