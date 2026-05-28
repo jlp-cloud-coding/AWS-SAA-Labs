@@ -72,3 +72,59 @@ v
     <img width="941" height="205" alt="vpc edit actions - 4" src="https://github.com/user-attachments/assets/d467ec0f-7c62-4723-a78c-98598ae5dcfa" />
 
     <img width="896" height="333" alt="enable dns - 5" src="https://github.com/user-attachments/assets/b6adb317-6c58-4ee4-8e16-c1101a553d47" />
+
+ #### Phase 2: Multi-Tier Subnet Segmentation (12-Subnet Matrix)
+* **Objective:** Architect strict network isolation boundaries across compute (web), business logic (app), data persistence layers (db), and future expansion fields (reserved).
+* **Implementation:** * Manually configured **12 distinct subnets** utilizing tight `/20` masks, allocating `4,096` unique IP signatures per network segment.
+  * Distributed subnets across **3 Availability Zones** (AZ-A, AZ-B, and AZ-C) to satisfy zero single-point-of-failure metrics:
+    * **WEB Tier (3 Public Subnets):** Dedicated zone for external load-balancers, ingress proxies, and internet front doors (`sn-web-A`, `sn-web-B`, `sn-web-C`).
+    * **APP Tier (3 Private Subnets):** Area hosting internal application processing units (`sn-app-A`, `sn-app-B`, `sn-app-C`).
+    * **DB Tier (3 Private Subnets):** Optimized for database workloads, strictly isolated from external visibility (`sn-db-A`, `sn-db-B`, `sn-db-C`).
+    * **Reserved Tier (3 Private Subnets):** Preserved for customized networking appliances or future edge integration vectors (`sn-reserved-A`, `sn-reserved-B`, `sn-reserved-C`).
+    * **Dual-Stack Automation Rule:** Explicitly enabled the `Enable auto-assign IPv6 address setting` to auto-assign native IPv6 addresses at the subnet level. This ensures that any compute resource launched into these boundaries automatically provisions a globally unique IPv6 address without requiring manual resource-level overrides.
+  * **Scalability Purpose:** Spare block space within the overall allocation map to allow the attachment of a 4th physical Availability Zone without breaking existing configurations.
+
+Multi-tier VPC Subnets Creation:
+
+Below screenshots show subnets creations in AZs A,B and C for the reserved tier. Likewise I did manual creation of the web, app and db subnets in each of the 3 AZs with a total of 12 subnets. (9 private subnets for app/db/reserved tiers and 3 public subnets for the web tier)
+
+AZ-A:
+-----
+<img width="742" height="308" alt="Create Subnet - step 1" src="https://github.com/user-attachments/assets/18832937-d673-4745-95fd-9810ee202caa" />
+
+<img width="785" height="351" alt="step 2a" src="https://github.com/user-attachments/assets/390e8bb4-0630-424f-aa45-89323604c54d" />
+
+<img width="765" height="327" alt="step 2b" src="https://github.com/user-attachments/assets/7cab98f6-4be5-47dc-b426-66b8c98ddfb0" />
+
+AZ-B:
+-----
+<img width="794" height="359" alt="AZ_B - subnet Step 1" src="https://github.com/user-attachments/assets/6b01e170-4018-4e13-8285-16ae36183d43" />
+
+<img width="787" height="322" alt="AZ-B STEP 2" src="https://github.com/user-attachments/assets/96569d29-5898-48df-bea9-22376b1c66a2" />
+
+AZ-C:
+-----
+<img width="796" height="355" alt="AZ-C STEP1" src="https://github.com/user-attachments/assets/6d9bcd1f-47ad-43de-85d5-a1ef8ef0885d" />
+
+<img width="770" height="355" alt="AZ-C STEP2" src="https://github.com/user-attachments/assets/131d74a2-52e7-42cb-b50d-fd95493de536" />
+
+Subnets in all tiers (including app,db,web):
+
+<img width="953" height="355" alt="Success- All 12 subnets" src="https://github.com/user-attachments/assets/97fa2ddc-4761-4c28-9a1d-adf12659a163" />
+
+Enable auto-assign IPv6 in subnet settings:
+
+<img width="946" height="358" alt="Step 4 - Edit SUbnet Setting Enable IPV6 for Subnets" src="https://github.com/user-attachments/assets/fbb02447-a614-4221-ad3b-763fe1712c0a" />
+
+<img width="761" height="356" alt="step 4b - enable ipv6 on created subnets" src="https://github.com/user-attachments/assets/ec9270a4-28c6-4487-b59f-3ac0368ac99c" />
+
+
+
+
+
+
+
+
+
+
+
