@@ -241,6 +241,16 @@ Similarly edit and add default routes for other RTs in different AZs, pointing t
 
 <img width="959" height="413" alt="step10-ping success to internet ipv4" src="https://github.com/user-attachments/assets/1241e488-438f-4440-abe1-7762fcc6c472" />
 
+### Cleanup:
+* Disassociate the subnets within each of the private Route Tables (created in Phase 5).
+* Delete all the Route Tables
+* Next delete all the NAT Gatways
+* Release all the Elastic IPs
+* Delete the Cloud Formation template which makes sure all the underlying resources are deleted.
+
+### Note: 
+* Even after successfully provisioning the NAT Gateways, generating their corresponding Route Tables, and adding the default public outbound routes (`0.0.0.0/0`), an outbound `ping` command from a private instance will still fail initially. This is because creating a Route Table does not inherently enforce it; you must **explicitly associate** the new Route Tables with the specific private subnets. If a subnet lacks an explicit association, it automatically falls back to utilizing the VPC's **Main Route Table**, which only permits local internal traffic (`10.16.0.0/16`), causing the outbound internet packets to drop.
+
 
 
 
