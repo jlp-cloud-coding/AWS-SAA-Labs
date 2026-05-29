@@ -88,22 +88,22 @@ Multi-tier VPC Subnets Creation:
 
 Below screenshots show subnets creations in AZs A,B and C for the reserved tier. Likewise I did manual creation of the web, app and db subnets in each of the 3 AZs with a total of 12 subnets. (9 private subnets for app/db/reserved tiers and 3 public subnets for the web tier)
 
-AZ-A:
------
+Subnet-A:
+--------
 <img width="742" height="308" alt="Create Subnet - step 1" src="https://github.com/user-attachments/assets/18832937-d673-4745-95fd-9810ee202caa" />
 
 <img width="785" height="351" alt="step 2a" src="https://github.com/user-attachments/assets/390e8bb4-0630-424f-aa45-89323604c54d" />
 
 <img width="765" height="327" alt="step 2b" src="https://github.com/user-attachments/assets/7cab98f6-4be5-47dc-b426-66b8c98ddfb0" />
 
-AZ-B:
------
+Subnet-B:
+--------
 <img width="794" height="359" alt="AZ_B - subnet Step 1" src="https://github.com/user-attachments/assets/6b01e170-4018-4e13-8285-16ae36183d43" />
 
 <img width="787" height="322" alt="AZ-B STEP 2" src="https://github.com/user-attachments/assets/96569d29-5898-48df-bea9-22376b1c66a2" />
 
-AZ-C:
------
+Subnet-C:
+---------
 <img width="796" height="355" alt="AZ-C STEP1" src="https://github.com/user-attachments/assets/6d9bcd1f-47ad-43de-85d5-a1ef8ef0885d" />
 
 <img width="770" height="355" alt="AZ-C STEP2" src="https://github.com/user-attachments/assets/131d74a2-52e7-42cb-b50d-fd95493de536" />
@@ -177,6 +177,69 @@ Enable auto-assign IPv6 in subnet settings:
 * **Success connection:** Observe that the local machine prompt connect to and display the internal, private IP of the host node (`ec2-user@ip-10-16-112-x`).
 
 <img width="862" height="460" alt="step 10 connect to ec2 successful" src="https://github.com/user-attachments/assets/cd80b96a-a402-4333-a5aa-ed7cebc2619e" />
+
+#### Phase 5: NAT Gateway Deployment - implementing private internet access
+
+Prior to executing this phase, all baseline infrastructure components from the previous phases were deleted to maintain zero active cloud costs. To establish an identical, production-ready baseline for this lab, an automated infrastructure-as-code deployment script via **AWS CloudFormation** was executed to instantly reconstruct the complete Phase 1 through Phase 4 structure. The NAT Gateway components, route tables, and subnet associations are done as part of Phase 5 separately.
+
+* **Objective:** Enable highly secure outbound-only internet connectivity for backend servers sitting in private subnets, allowing them to download security patches or system dependencies while strictly blocking the public internet from initiating direct inbound connections.
+* **Implementation Steps:**
+* Before creating any NAT Gatways we first validate by connecting the private EC2 instance created (which has been created using the CFN template along with the other resources from Phases 1 to 4) in the sn-app-A subnet. This instance doesn't have an IPV4 public address associated with it, so we connect to it via the SSH Session Manager inorder to access the EC2 console.
+
+<img width="952" height="368" alt="step1-ec2-ssh connect" src="https://github.com/user-attachments/assets/dc2927a5-2943-4d5e-98be-806d24708ed1" />
+
+<img width="936" height="339" alt="step 2 - ssm session manager" src="https://github.com/user-attachments/assets/c5d8a45a-7276-4948-a886-75bd7d4c1376" />
+
+* Next we using a ping command to ping to a public IPv4 address. **ping 1.1.1.1**
+
+<img width="956" height="269" alt="step3-ping" src="https://github.com/user-attachments/assets/ef44889c-6c18-4bcb-9dd2-ebfb32280a88" />
+
+* Since we don't have a NAT Gateway created yet, this private EC2 instance cannot send any connection request to the public internet yet.
+  
+* Now create **3 distinct NAT Gateways** across the three public WEB subnets (`sn-web-A`, `sn-web-B`, and `sn-web-C`).
+ 
+<img width="959" height="393" alt="step4-create natgw-a" src="https://github.com/user-attachments/assets/9edc4eb0-406b-4f22-8d42-051058dd2758" />
+
+<img width="985" height="372" alt="step4a-create natgwa" src="https://github.com/user-attachments/assets/34b4212a-e565-4aca-93c5-2c7519417942" />
+
+<img width="967" height="374" alt="step4b-create natgwa" src="https://github.com/user-attachments/assets/05e3344d-0454-461a-9cd7-9812550c56bd" />
+
+All the NAT Gateways:
+
+<img width="956" height="371" alt="step5- all natgws created" src="https://github.com/user-attachments/assets/ab5192e2-3bca-4c3d-8cfc-a1c88676352a" />
+
+Elastic IPs (public IPv4 addresses) for all the NAT Gateways:
+
+<img width="953" height="377" alt="step6 - elastic IPs" src="https://github.com/user-attachments/assets/d12164aa-6829-468f-a563-897d9e5f496d" />
+
+* *Design Rationale:* Deploying a separate NAT Gateway in each individual Availability Zone satisfies AWS high-availability best practices. If a single physical data center zone suffers a major failure, the other two zones maintain independent outbound public exit tracks without dealing with costly cross-AZ data processing delays or fatal single-point failure vectors.
+
+* Create **3 private Route Tables** (one dedicated for each independent Availability Zone block) to maintain total isolation boundaries.
+  
+<img width="959" height="374" alt="step 7-create RTa" src="https://github.com/user-attachments/assets/0a754be9-2c0a-46bc-9b09-2ea3aec7cad9" />
+
+* Embed a default outbound IPv4 route path within each route table targeting its respective, local-zone NAT Gateway:
+    * **Private Egress Policy:** `0.0.0.0/0` &rarr; `NAT Gateway (Specific to that active AZ below a4l-vpc1-natgw-A)`
+   
+<img width="959" height="368" alt="step8 - add default routes" src="https://github.com/user-attachments/assets/ad11ad78-fc29-4e0a-b51e-e08ad9b6257d" />
+
+<img width="957" height="358" alt="step8a - add natgwa in the target" src="https://github.com/user-attachments/assets/9d73c1ec-046f-45d0-b5b5-81bcb8af9e8b" />
+
+Similarly edit and add default routes for other RTs in different AZs, pointing to the corresponding NAT Gatways in those AZs:
+
+<img width="959" height="377" alt="step 8b - default route added for b" src="https://github.com/user-attachments/assets/24d13fda-4418-4ce0-8477-ea76b4524005" />
+
+<img width="959" height="376" alt="step 8b- add natgw b " src="https://github.com/user-attachments/assets/a027ebf9-d655-48a7-a255-a795aedf7f6b" />
+
+* Link the custom route tables to the corresponding private subnets (including `sn-app-A`, `sn-db-A`, and `sn-reserved-A`).
+
+<img width="959" height="375" alt="step 9-subnet association a" src="https://github.com/user-attachments/assets/01be9bab-ef0e-45d7-9c6d-4476f3f05d3d" />
+
+<img width="957" height="370" alt="step 9a" src="https://github.com/user-attachments/assets/99418405-ac03-4984-be26-a19893287cba" />
+
+* **Validation:** Re-ran the test (`ping 1.1.1.1`). Observed live network tracking returns successfully streaming back into the private console terminal session.
+
+<img width="959" height="413" alt="step10-ping success to internet ipv4" src="https://github.com/user-attachments/assets/1241e488-438f-4440-abe1-7762fcc6c472" />
 
 
 
