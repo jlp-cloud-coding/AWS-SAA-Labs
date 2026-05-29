@@ -1,12 +1,8 @@
 ### Overview
 A comprehensive, hands-on engineering implementation of a highly available, secure, and fault-tolerant Virtual Private Cloud (VPC) topology deployed across multiple Availability Zones (AZs) in the `us-east-1` region.
 
-### Final Architectural Blueprint
+### Architectural Blueprint
 The final physical and logical deployment state achieved at the conclusion:
-
-
-### 🗺️ Final Architectural Blueprint
-The final logical and physical deployment state achieved across the multi-tier `us-east-1` topology:
 
 | Layer / Tier | Availability Zone A | Availability Zone B | Availability Zone C | Target Route Mapping |
 | :--- | :--- | :--- | :--- | :--- |
@@ -16,12 +12,11 @@ The final logical and physical deployment state achieved across the multi-tier `
 | **🗄️ Database** | `sn-db-A`<br>`10.16.16.0/20` | `sn-db-B`<br>`10.16.80.0/20` | `sn-db-C`<br>`10.16.144.0/20` | **Zone-Specific Private RT**<br>• Outbound: `0.0.0.0/0` ➔ Local NAT-GW |
 | **🛠️ Reserved (Future Expansion)** | `sn-reserved-A`<br>`10.16.0.0/20` | `sn-reserved-B`<br>`10.16.64.0/20` | `sn-reserved-C`<br>`10.16.128.0/20` | **Zone-Specific Private RT**<br>• Outbound: `0.0.0.0/0` ➔ Local NAT-GW |
 
-
 ---
 
 ### Steps
 
-#### Phase 1: Custom Baseline VPC Blueprint (The Container Skeleton)
+#### Phase 1: Custom VPC Container (The Skeleton)
 * **Objective:** Establish an isolated, logically partitioned administrative network boundary.
 * **Implementation Steps:** * Create a custom VPC container utilizing a `/16` network prefix (`10.16.0.0/16`), encapsulating `65,536` total IP addresses.
   * Toggle the DNS settings: `enableDnsSupport` and `enableDnsHostnames` checked as `true` to ensure seamless name-resolution behaviors.
