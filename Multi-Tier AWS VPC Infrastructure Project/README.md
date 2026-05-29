@@ -4,62 +4,20 @@ A comprehensive, hands-on engineering implementation of a highly available, secu
 ### Final Architectural Blueprint
 The final physical and logical deployment state achieved at the conclusion:
 
-Let's fix that text-based architectural blueprint. The spacing can easily warp depending on the screen size or how GitHub renders it.
 
-Here is a perfectly structured, clean, and symmetrical ASCII Network Map built to GitHub's exact rendering grid. I have boxed each Availability Zone vertically so it reads like a standard corporate enterprise infrastructure schematic.
+### 🗺️ Final Architectural Blueprint
+The final logical and physical deployment state achieved across the multi-tier `us-east-1` topology:
 
-You can copy and paste this block directly over the old diagram in your README.md:
+| Layer / Tier | Availability Zone A | Availability Zone B | Availability Zone C | Target Route Mapping |
+| :--- | :--- | :--- | :--- | :--- |
+| **🌐 Public Edge** | `sn-web-A`<br>`10.16.48.0/20` | `sn-web-B`<br>`10.16.112.0/20` | `sn-web-C`<br>`10.16.176.0/20` | **Internet Gateway (`a4l-vpc-1-igw`)**<br>• IPv4: `0.0.0.0/0`<br>• IPv6: `::/0` |
+| **⚡ Egress Proxies** | **💥 NAT Gateway A** | **💥 NAT Gateway B** | **💥 NAT Gateway C** | Allocated dynamically via Elastic IPs |
+| **💻 Application** | `sn-app-A`<br>`10.16.32.0/20`<br>*(🖥️ Test Instance)* | `sn-app-B`<br>`10.16.96.0/20` | `sn-app-C`<br>`10.16.160.0/20` | **Zone-Specific Private RT**<br>• Outbound: `0.0.0.0/0` ➔ Local NAT-GW |
+| **🗄️ Database** | `sn-db-A`<br>`10.16.16.0/20` | `sn-db-B`<br>`10.16.80.0/20` | `sn-db-C`<br>`10.16.144.0/20` | **Zone-Specific Private RT**<br>• Outbound: `0.0.0.0/0` ➔ Local NAT-GW |
+| **🛠️ Reserved** | `sn-reserved-A`<br>`10.16.0.0/20` | `sn-reserved-B`<br>`10.16.64.0/20` | `sn-reserved-C`<br>`10.16.128.0/20` | **Zone-Specific Private RT**<br>• Outbound: `0.0.0.0/0` ➔ Local NAT-GW |
+| **🔮 Future Expansion** | ❌ *Unassigned Pool* | ❌ *Unassigned Pool* | ❌ *Unassigned Pool* | **Spare Address Space Reserved for 4th AZ** |
 
-+------------------------------------------------------------------------------------------------------------------------+
-|                                      AWS REGION: us-east-1 (VPC CIDR: 10.16.0.0/16)                                    |
-+------------------------------------------------------------------------------------------------------------------------+
-|                                                                                                                        |
-|   +------------------------------------+   +------------------------------------+   +------------------------------------+ |
-|   |        AVAILABILITY ZONE A         |   |        AVAILABILITY ZONE B         |   |        AVAILABILITY ZONE C         | |
-|   +------------------------------------+   +------------------------------------+   +------------------------------------+ |
-|   |  [WEB TIER] Public Subnet          |   |  [WEB TIER] Public Subnet          |   |  [WEB TIER] Public Subnet          | |
-|   |  sn-web-A (10.16.48.0/20)          |   |  sn-web-B (10.16.112.0/20)         |   |  sn-web-C (10.16.176.0/20)         | |
-|   |                                    |   |                                    |   |                                    | |
-|   |  [💥 NAT Gateway A]                |   |  [💥 NAT Gateway B]                |   |  [💥 NAT Gateway C]                | |
-|   +-----------------+------------------+   +-----------------+------------------+   +-----------------+------------------+ |
-|                     |                                        |                                        |                    |
-|   +-----------------v------------------+   +-----------------v------------------+   +-----------------v------------------+ |
-|   |  [APP TIER] Private Subnet         |   |  [APP TIER] Private Subnet         |   |  [APP TIER] Private Subnet         | |
-|   |  sn-app-A (10.16.32.0/20)          |   |  sn-app-B (10.16.96.0/20)          |   |  sn-app-C (10.16.160.0/20)         | |
-|   |  🖥️ Private EC2 (Ping Source)     |   |                                    |   |                                    | |
-|   +-----------------+------------------+   +-----------------+------------------+   +-----------------+------------------+ |
-|                     |                                        |                                        |                    |
-|   +-----------------v------------------+   +-----------------v------------------+   +-----------------v------------------+ |
-|   |  [DB TIER] Private Subnet          |   |  [DB TIER] Private Subnet          |   |  [DB TIER] Private Subnet          | |
-|   |  sn-db-A (10.16.16.0/20)           |   |  sn-db-B (10.16.80.0/20)           |   |  sn-db-C (10.16.144.0/20)          | |
-|   +-----------------+------------------+   +-----------------+------------------+   +-----------------+------------------+ |
-|                     |                                        |                                        |                    |
-|   +-----------------v------------------+   +-----------------v------------------+   +-----------------v------------------+ |
-|   |  [RESERVED TIER] Private Subnet    |   |  [RESERVED TIER] Private Subnet    |   |  [RESERVED TIER] Private Subnet    | |
-|   |  sn-reserved-A (10.16.0.0/20)      |   |  sn-reserved-B (10.16.64.0/20)     |   |  sn-reserved-C (10.16.128.0/20)    | |
-|   +------------------------------------+   +------------------------------------+   +------------------------------------+ |
-|                                                                                                                        |
-|   ==================================================================================================================   |
-|                                SPARE CAPACITY SPACE (Allocated for Futuristic 4th AZ Expansion)                        |
-|   ==================================================================================================================   |
-|                                                                                                                        |
-+------------------------------------------------------------------------------------------------------------------------+
-|                                             [VPC CORE VIRTUAL ROUTER]                                                  |
-+------------------------------------------------------------------------------------------------------------------------+
-|                     |                                                                  |                               |
-|                     | (Public Web Route Table)                                         | (Custom Private Route Tables) |
-|                     v                                                                  v                               |
-|       [Internet Gateway: a4l-vpc-1-igw]                                   [AZ-Specific NAT Gateways]                   |
-|       * Outbound Rules:                                                   * Outbound Rules:                            |
-|         - IPv4: 0.0.0.0/0                                                   - IPv4: 0.0.0.0/0                          |
-|         - IPv6: ::/0                                                                                                   |
-|                     |                                                                  |                               |
-|                     +---------------------------------+--------------------------------+                               |
-|                                                       |                                                                |
-|                                                       v                                                                |
-|                                              🌐 PUBLIC INTERNET                                                        |
-|                                               (Target: 1.1.1.1)                                                        |
-+------------------------------------------------------------------------------------------------------
+---
 
 ### Steps
 
