@@ -143,7 +143,7 @@ Enable auto-assign IPv6 in subnet settings:
 
 <img width="971" height="351" alt="step 3 - 8 add custom routes for public internet" src="https://github.com/user-attachments/assets/f97e6abb-ef61-473c-8185-ccb79f0c400e" />
 
-* Associate the 3 public-facing WEB subnets to this new custom route table. Also update the subnet properties to mandate public IPv4 auto-assignment at the subnet-level to prevent doing it later on at resource level.
+* Associate the 3 public-facing WEB subnets to this new custom route table. Also update the subnet properties to mandate public IPv4 auto-assignment at the subnet-level to prevent doing it later on at resource level for each individual resource created in that specific subnet.
 
 <img width="950" height="350" alt="step 4 - 9  edit subnet settings" src="https://github.com/user-attachments/assets/a8406d0e-698e-4921-abb7-47df890b4cbc" />
 
