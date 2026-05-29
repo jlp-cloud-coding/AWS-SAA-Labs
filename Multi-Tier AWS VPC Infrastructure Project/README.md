@@ -11,11 +11,11 @@ The final logical and physical deployment state achieved across the multi-tier `
 | Layer / Tier | Availability Zone A | Availability Zone B | Availability Zone C | Target Route Mapping |
 | :--- | :--- | :--- | :--- | :--- |
 | **🌐 Public Edge** | `sn-web-A`<br>`10.16.48.0/20` | `sn-web-B`<br>`10.16.112.0/20` | `sn-web-C`<br>`10.16.176.0/20` | **Internet Gateway (`a4l-vpc-1-igw`)**<br>• IPv4: `0.0.0.0/0`<br>• IPv6: `::/0` |
-| **⚡ Egress Proxies** | **💥 NAT Gateway A** | **💥 NAT Gateway B** | **💥 NAT Gateway C** | Allocated dynamically via Elastic IPs |
+| **Egress Proxies** | **💥 NAT Gateway A** | **💥 NAT Gateway B** | **💥 NAT Gateway C** | Allocated dynamically via Elastic IPs |
 | **💻 Application** | `sn-app-A`<br>`10.16.32.0/20`<br>*(🖥️ Test Instance)* | `sn-app-B`<br>`10.16.96.0/20` | `sn-app-C`<br>`10.16.160.0/20` | **Zone-Specific Private RT**<br>• Outbound: `0.0.0.0/0` ➔ Local NAT-GW |
 | **🗄️ Database** | `sn-db-A`<br>`10.16.16.0/20` | `sn-db-B`<br>`10.16.80.0/20` | `sn-db-C`<br>`10.16.144.0/20` | **Zone-Specific Private RT**<br>• Outbound: `0.0.0.0/0` ➔ Local NAT-GW |
-| **🛠️ Reserved** | `sn-reserved-A`<br>`10.16.0.0/20` | `sn-reserved-B`<br>`10.16.64.0/20` | `sn-reserved-C`<br>`10.16.128.0/20` | **Zone-Specific Private RT**<br>• Outbound: `0.0.0.0/0` ➔ Local NAT-GW |
-| **🔮 Future Expansion** | ❌ *Unassigned Pool* | ❌ *Unassigned Pool* | ❌ *Unassigned Pool* | **Spare Address Space Reserved for 4th AZ** |
+| **🛠️ Reserved (Future Expansion)** | `sn-reserved-A`<br>`10.16.0.0/20` | `sn-reserved-B`<br>`10.16.64.0/20` | `sn-reserved-C`<br>`10.16.128.0/20` | **Zone-Specific Private RT**<br>• Outbound: `0.0.0.0/0` ➔ Local NAT-GW |
+
 
 ---
 
