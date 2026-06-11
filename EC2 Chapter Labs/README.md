@@ -1,0 +1,1 @@
+Labs from ELASTIC COMPUTE CLOUD (EC2) BASICS chapter
