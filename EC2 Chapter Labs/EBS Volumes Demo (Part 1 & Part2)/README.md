@@ -22,7 +22,32 @@ During this lab, the attached EBS volume appeared in the operating system as `/d
 
 ---
 
+## Prerequisite:
+This lab was performed using CloudFormation template shared from the EBS volumes demo chapter from adrian cantrill's saa course. A bunch of resources were created after importing this template such as EC2 Instances 2 in AZ-A and 1 in AZ-B, EBS Volumes, Security Groups etc.
+
+<img width="959" height="356" alt="CF Stack" src="https://github.com/user-attachments/assets/40e7ae5f-ff90-4618-8d2a-1430b025f569" />
+
+<img width="956" height="353" alt="ec2 instances" src="https://github.com/user-attachments/assets/4211fd00-8bb1-4322-b3e3-99d52dcd4156" />
+
 ## 🛠️ Step-by-Step Lab Execution
+
+## Create an EBS Volume manually via console and attach it to EC2 instance 1 in AZ-A:
+
+EBS Volume Creation:
+
+<img width="959" height="369" alt="step 3 - ebs create vol 1" src="https://github.com/user-attachments/assets/a15f4fb5-3b30-4eac-b8fe-6f6f1157fc86" />
+
+<img width="959" height="377" alt="step3 - ebs create vol 2" src="https://github.com/user-attachments/assets/d7ff1974-4ad0-476d-a606-7715f46bbc73" />
+
+Attach to EC2 instance 1:
+
+<img width="959" height="385" alt="Attach EBS Vol to EC2 1 instance" src="https://github.com/user-attachments/assets/becd3667-2f13-4822-a9b1-13bed53fba57" />
+
+<img width="988" height="377" alt="attach vol step 2" src="https://github.com/user-attachments/assets/445561c7-fd84-461b-8d2d-cee131a935dd" />
+
+Connect to EC2 instance 1 in AZ-A via EC2 Instance Connect in the browser terminal:
+
+<img width="959" height="376" alt="step 4 - ec2 instance connect" src="https://github.com/user-attachments/assets/71c1d838-412c-402b-930b-54c8127f8dda" />
 
 ### Phase 1: Initializing and Mounting the EBS Volume (Instance 1)
 When a raw EBS volume is first attached to an EC2 instance, it has no file system layout. We must verify its block status, format it, and create a logical mount directory. Run below commands in the browser terminal by connecting via EC2 Instance Connect:
@@ -101,7 +126,15 @@ This shows that the data on this file system is persistent and its available eve
 Because EBS volumes are network-isolated components detached from individual CPU hosts, they can be unmounted and passed around between different instances within the same Availability Zone.
 
 Now stop the first EC2 instance in AZ-A and detach the EBS volume from this instance.
+
+<img width="955" height="377" alt="step5-stop ec2 instance 1 in azA" src="https://github.com/user-attachments/assets/ce13e3a9-aeb7-4cb1-804b-a5b7055286e9" />
+
+<img width="959" height="374" alt="step6-detach ebs volume from instance1 in azA" src="https://github.com/user-attachments/assets/0b896075-035d-4192-8c4c-133f2ab59827" />
+
 And attach this ebs volume to another EC2 instance 2 in AZ-A and connect to it via EC2 Instance connect in the browser window.
+
+<img width="959" height="373" alt="step7-reattch the ebs volume to instance2 in azA" src="https://github.com/user-attachments/assets/32de5868-fab9-4c06-a6f2-d0169d8e8981" />
+
 
 ```bash
 
@@ -128,16 +161,35 @@ We can see that our text file mysuccessfile.txt and its contents exist.
 ```
 Now stop EC2 instance 2 in AZ-A and detach the EBS volume. Now we can also attach this EBS volume to EC2 intance 3 in AZ-B using Snapshots. (We cannot directly attach without Snapshots to instance 3 which is in AZ-B because EBS volume is created in AZ-A and it is strictly AZ specific. Inorder to associate this volume outside the AZ we can create a Snapshot using S3).
 
-### 🏗️ The Cross-AZ Migration Architecture
+### 🏗️ The Cross-AZ Migration Architecture - Snapshots<img width="959" height="377" alt="step8- create snapshot" src="https://github.com/user-attachments/assets/1e298d7d-8735-4f68-88d3-00c2eed6e73b" />
+
 When you take a snapshot of an EBS volume, AWS takes a point-in-time backup of the data and stores it incrementally inside Amazon S3. Because S3 is a region-wide service (not locked to a single AZ), that snapshot becomes accessible from any Availability Zone within that region.
 
 To attach the data to Instance 3 in AZ-B, you follow a 3-step pipeline:
 
 Snapshot: Take a snapshot of the volume in AZ-A (copies data to S3).
 
+<img width="959" height="377" alt="step8- create snapshot" src="https://github.com/user-attachments/assets/eae313b4-637b-457e-b543-d7ab816dfb40" />
+
+<img width="959" height="356" alt="step 8b - create snapshot" src="https://github.com/user-attachments/assets/0ccf4b4d-7296-4d68-b4bc-2c3cc5970117" />
+
+<img width="956" height="373" alt="step 8c- create snapshot" src="https://github.com/user-attachments/assets/53b28176-1eff-498b-a2b3-6cf35503f102" />
+
 Restore: Create a brand new EBS volume from that snapshot, but explicitly choose AZ-B as the target location.
 
+<img width="959" height="379" alt="step 9- Create volume from snapshot" src="https://github.com/user-attachments/assets/50b6891c-f691-46cb-96b3-dee31ddab87c" />
+
+<img width="959" height="376" alt="step9b- create vol from snapshot" src="https://github.com/user-attachments/assets/49fd744d-d920-48c4-bb9a-c3157cefb670" />
+
+<img width="955" height="378" alt="step9c" src="https://github.com/user-attachments/assets/bed9e9ab-5d52-4d45-95e8-9a9640f9af71" />
+
+<img width="959" height="373" alt="step9d" src="https://github.com/user-attachments/assets/24395c30-3497-466b-8d77-3a25fdd68ae0" />
+
 Attach: Plug that new volume directly into Instance 3.
+
+<img width="956" height="374" alt="step10-attach ebstestvolumeAZB to ec2 instance in AZB" src="https://github.com/user-attachments/assets/bef2aa32-3290-4f40-8d00-ce806c8c463d" />
+
+<img width="959" height="379" alt="step10b" src="https://github.com/user-attachments/assets/35715022-b4fb-4883-b007-311f2d1e1985" />
 
 ## Phase 1: Verification and Mounting
 Because this new volume was created from a snapshot of your original volume, it already has a filesystem and your files on it. You do not run mkfs (formatting) because that would wipe your data!
