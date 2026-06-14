@@ -105,10 +105,11 @@ sudo nano /etc/fstab
 ```
 
 ## Configuration addition appended to the bottom of /etc/fstab:
-UUID=YOUR_VOLUME_UUID_HERE  /ebstest  xfs  defaults,nofail 
-UUID=ebadbc61-3577-43e2-92af-d3efb622aa6a /ebstest xfs defaults,nofail
 
-## 💡 The nofail Flag: Adding nofail ensures that if this specific EBS volume is ever detached from the instance in the AWS console, the EC2 instance will still boot up smoothly rather than crashing during the boot phase due to a missing disk map.
+UUID=YOUR_VOLUME_UUID_HERE  /ebstest  xfs  defaults,nofail 
+Ex: UUID=ebadbc61-3577-43e2-92af-d3efb622aa6a /ebstest xfs defaults,nofail
+
+The nofail Flag: Adding nofail ensures that if this specific EBS volume is ever detached from the instance in the AWS console, the EC2 instance will still boot up smoothly rather than crashing during the boot phase due to a missing disk map.
 
 ```bash
 # 5. Verify the fstab configuration file has no errors and mount the drive paths. This will perform mount of all the volumes listed in the fstab file
