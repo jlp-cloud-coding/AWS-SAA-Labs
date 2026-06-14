@@ -48,7 +48,7 @@ sudo mount /dev/nvme1n1 /ebstest
 
 # 7. Move into the storage track and write a mock application data file
 cd /ebstest
-sudo nano amazingtestfile.txt
+sudo nano mysuccessfile.txt
 # [Added test message inside nano editor, then saved and exited]
 
 # 8. List directory permissions and contents to verify file placement
