@@ -25,7 +25,7 @@ During this lab, the attached EBS volume appeared in the operating system as `/d
 ## 🛠️ Step-by-Step Lab Execution
 
 ### Phase 1: Initializing and Mounting the EBS Volume (Instance 1)
-When a raw EBS volume is first attached to an EC2 instance, it has no file system layout. We must verify its block status, format it, and create a logical mount directory.
+When a raw EBS volume is first attached to an EC2 instance, it has no file system layout. We must verify its block status, format it, and create a logical mount directory. Run below commands in the browser terminal by connecting via EC2 Instance Connect:
 
 ```bash
 # 1. List all available block storage devices to find the new unformatted volume
