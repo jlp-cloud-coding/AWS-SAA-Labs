@@ -24,7 +24,7 @@ In production, installing your application from scratch using boot scripts (User
 ### Step 1: Base Configuration & Stack Deployment
 Launcha base Linux EC2 instance and manually provisioned the complete LAMP stack, application parameters, and custom operating system banners (`cowsay` custom MOTD configuration).
 
-# 1: Set Up Configuration Variables
+#### 1: Set Up Configuration Variables
 These variables store your database settings in the terminal's memory so you don't have to re-type them in later commands.
 
 ``` 
@@ -35,13 +35,13 @@ DBRootPassword='4n1m4l$L1f3'
 
 ```
 
-# 2: Install System Software Stack (LAMP)
+#### 2: Install System Software Stack (LAMP)
 This downloads and installs the web server (Apache), the programming language runtime (PHP), and the database management engine (MariaDB).
 
 ```
 sudo dnf install wget php-mysqlnd httpd php-fpm php-mysqli mariadb105-server php-json php php-devel -y
 ```
-# 3. Start and Enable Services
+#### 3. Start and Enable Services
 This turns on Apache (httpd) and MariaDB, and configures Linux to turn them back on automatically if the server reboots.
 
 ```
@@ -51,12 +51,12 @@ sudo systemctl start httpd
 sudo systemctl start mariadb
 ```
 
-# 4: Set the Database Root Password
+#### 4: Set the Database Root Password
 Secures the core database management system engine with an administrative password.
 ```
 sudo mysqladmin -u root password $DBRootPassword
 ```
-# 5: Download and Extract WordPress
+#### 5: Download and Extract WordPress
 Downloads the official WordPress application package to the web directory, unpacks it, cleans up the leftover zip files, and moves the folders to the correct server path.
 ```
 sudo wget http://wordpress.org/latest.tar.gz -P /var/www/html
@@ -67,7 +67,7 @@ sudo rm -R wordpress
 sudo rm latest.tar.gz
 ```
 
-# 6: Configure the Application Settings
+#### 6: Configure the Application Settings
 Copies the sample configuration file, dynamically replaces the placeholder text with your database variables using sed (stream editor), and hands file ownership over to the Apache web server.
 ```
 sudo cp ./wp-config-sample.php ./wp-config.php
@@ -77,7 +77,7 @@ sudo sed -i "s/'password_here'/'$DBPassword'/g" wp-config.php
 sudo chown apache:apache * -R
 ```
 
-# 7: Create the Application Database
+#### 7: Create the Application Database
 Writes the core structured query commands (SQL) to a temporary file to create the a4lwordpress database and assign user permissions, feeds that file directly into MariaDB, and wipes the temporary setup file clean.
 ```
 echo "CREATE DATABASE $DBName;" >> /tmp/db.setup
@@ -88,13 +88,13 @@ mysql -u root --password=$DBRootPassword < /tmp/db.setup
 sudo rm /tmp/db.setup
 ```
 
-# 8: Install and Test cowsay
+#### 8: Install and Test cowsay
 Installs the fun terminal customization tool and runs a basic test command.
 ```
 sudo dnf install -y cowsay
 cowsay "hey hello"
 ```
-# 9: Configure Custom Message of the Day (MOTD)
+#### 9: Configure Custom Message of the Day (MOTD)
 Creates an automated text script file using the nano terminal text editor so that anyone who logs into the server is greeted by the animal banner, updates the system permission rules so it can run, applies the changes, and restarts the operating system.
 
 ```
