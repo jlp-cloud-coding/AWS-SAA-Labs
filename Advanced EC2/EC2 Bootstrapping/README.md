@@ -81,7 +81,7 @@ UserData:
     dnf install ...
 ```
 View entire CFN template file below:
-[CFNTemplate_UserData](cloudformation_with_UserData.txt)
+[CFNTemplate](cloudformation_with_UserData.txt)
 
 ## Advantages
 
@@ -122,7 +122,7 @@ UserData:
     /opt/aws/bin/cfn-signal ...
 ```
 View entire CFN template file below:
-[CFNTemplate_cfn-init][cloudformation_with_cfn-init.txt]
+[CFNTemplate_cfn-init]cloudformation_with_cfn-init.txt
 
 The actual installation steps now live inside the template Metadata as structured configuration.
 
