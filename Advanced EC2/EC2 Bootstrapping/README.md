@@ -32,13 +32,7 @@ Same User Data Script
         │
         ▼
 Approach 3
-CloudFormation
-+
-Metadata
-+
-cfn-init
-+
-cfn-signal
+CloudFormation + Metadata + cfn-init + cfn-signal
 ```
 
 ---
