@@ -256,6 +256,95 @@ The deployment logic is now stored in CloudFormation Metadata rather than inside
 
 ---
 
+# Inspecting User Data with IMDSv2
+
+After the EC2 instance launches, the User Data script can be retrieved from inside the instance using the **EC2 Instance Metadata Service Version 2 (IMDSv2)**.
+
+This demonstrates that the bootstrap script is delivered to the instance during launch and is available through the metadata service.
+
+## Step 1 — Request an IMDSv2 Session Token
+
+```bash
+TOKEN=$(curl -X PUT \
+"http://169.254.169.254/latest/api/token" \
+-H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
+```
+
+The token is valid for **6 hours (21,600 seconds)** and must be included in subsequent metadata requests.
+
+---
+
+## Step 2 — View Available Metadata Categories
+
+```bash
+curl \
+-H "X-aws-ec2-metadata-token: $TOKEN" \
+http://169.254.169.254/latest/meta-data/
+```
+
+Example output:
+
+```
+ami-id
+instance-id
+instance-type
+hostname
+local-ipv4
+public-ipv4
+security-groups
+...
+```
+
+These values describe the running EC2 instance.
+
+---
+
+## Step 3 — View the User Data
+
+```bash
+curl \
+-H "X-aws-ec2-metadata-token: $TOKEN" \
+http://169.254.169.254/latest/user-data/
+```
+
+This command returns the exact User Data that was supplied when the EC2 instance was launched.
+
+For:
+
+- **Approach 1**, it returns the script entered manually in the EC2 Console.
+- **Approach 2**, it returns the script embedded inside the CloudFormation template.
+- **Approach 3**, it returns only the lightweight wrapper that invokes `cfn-init` and `cfn-signal`.
+
+---
+
+## Why IMDSv2?
+
+AWS introduced **Instance Metadata Service Version 2 (IMDSv2)** to improve security over IMDSv1.
+
+Benefits include:
+
+- Session-oriented authentication using temporary tokens
+- Protection against Server-Side Request Forgery (SSRF) attacks
+- Better security for applications running on EC2 instances
+
+## Flow:
+CloudFormation / EC2 Console
+            │
+            ▼
+      User Data
+            │
+            ▼
+       cloud-init
+            │
+            ▼
+   EC2 Instance Boots
+            │
+            ▼
+Stored by Instance Metadata Service
+            │
+            ▼
+curl http://169.254.169.254/latest/user-data/
+
 # Screenshots
 
 ## Approach 1
