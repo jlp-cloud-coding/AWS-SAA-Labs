@@ -46,7 +46,8 @@ Launch an EC2 instance manually through the AWS Console and paste the bootstrap 
 During the first boot, **cloud-init** executes the script as the `root` user.
 
 ## UserData
-[UserData](userdata.txt)
+View the UserData script below:
+[ViewScript](userdata.txt)
 
 
 ## Advantages
@@ -79,7 +80,8 @@ UserData:
 
     dnf install ...
 ```
-[ViewFileContent](cloudformation_with_UserData.txt)
+View entire CFN template file below:
+[CFNTemplate_UserData](cloudformation_with_UserData.txt)
 
 ## Advantages
 
@@ -119,7 +121,8 @@ UserData:
 
     /opt/aws/bin/cfn-signal ...
 ```
-[ViewFileContent][cloudformation_with_cfn-init.txt]
+View entire CFN template file below:
+[CFNTemplate_cfn-init][cloudformation_with_cfn-init.txt]
 
 The actual installation steps now live inside the template Metadata as structured configuration.
 
