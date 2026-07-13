@@ -262,9 +262,17 @@ The deployment logic is now stored in CloudFormation Metadata rather than inside
 
 ### EC2 Instance Connect
 
-Shows successful execution of the User Data script and the custom **cowsay** MOTD.
+Shows successful execution of the User Data script and the custom **cowsay** MOTD along with the cloud_init_output.log and cloud_init.log files
 
-*Insert Screenshot*
+<img width="959" height="355" alt="Screenshot 2026-07-11 160814" src="https://github.com/user-attachments/assets/c7fe8ebf-dca8-45ec-95fc-45712c9057cb" />
+
+<img width="958" height="373" alt="Screenshot 2026-07-11 160843" src="https://github.com/user-attachments/assets/10532d66-165f-4c0d-948f-d80cc134c336" />
+
+<img width="959" height="377" alt="Screenshot 2026-07-11 160936" src="https://github.com/user-attachments/assets/ec214208-31a7-4d1f-b3a7-78fdb5a89bad" />
+
+<img width="953" height="355" alt="Screenshot 2026-07-11 161525" src="https://github.com/user-attachments/assets/cead1106-a575-488e-a5a6-7af6ab796c23" />
+
+<img width="959" height="386" alt="Screenshot 2026-07-11 162304" src="https://github.com/user-attachments/assets/74f19c38-79c9-462b-9b9f-75175eb45a1f" />
 
 ---
 
@@ -276,8 +284,8 @@ Accessing the EC2 Public IPv4 address confirms:
 - PHP configured
 - MariaDB initialized
 - WordPress installation page displayed
-
-*Insert Screenshot*
+  
+<img width="950" height="474" alt="Screenshot 2026-07-11 162111" src="https://github.com/user-attachments/assets/4b4397a7-77f3-4d9f-99b8-22a6720774dc" />
 
 ---
 
