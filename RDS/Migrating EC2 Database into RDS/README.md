@@ -83,19 +83,20 @@ Provision an Amazon RDS MySQL database instance.
 <img width="790" height="160" alt="Screenshot 2026-08-03 161050" src="https://github.com/user-attachments/assets/c1f90584-00c5-48af-af42-2eca720e52aa" />
 
 ### 3. Migrate Database to RDS
-# Restore to Destination Database
+#### Restore to Destination Database
 ```bash
 mysql -h CNAMEOFRDSINSTANCE -u a4lwordpress -p a4lwordpress < a4lwordpress.sql
 ```
 ### 4. Update Application Configuration
+
 Modify the WordPress configuration file (wp-config.php) to point application database queries from local host to the newly created RDS endpoint:
 
-# Edit application configuration file
+#### Edit application configuration file
 cd /var/www/html
 sudo nano wp-config.php
 ctrl+o(save), enter, ctrl+x(exit)
 
-# Update Database Host Definition:
+#### Update Database Host Definition:
 ```bash
 replace
 /** MySQL hostname */
