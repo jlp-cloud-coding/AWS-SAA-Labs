@@ -34,10 +34,9 @@ Connect to the EC2 host via EC2 browser Instance Connect and export the local My
 # Backup of Source Database
 mysqldump -h PRIVATEIPOFMARIADBINSTANCE -u a4lwordpress -p a4lwordpress > a4lwordpress.sql
 Run a ls -la to verify the dump file has been succesfully retrieved
+```
 
 <img width="686" height="337" alt="Screenshot 2026-08-03 164039" src="https://github.com/user-attachments/assets/ae18566a-59e2-4780-9f30-7d9dace24a14" />
-
-```
 
 ### 2a. Create DB subnet group 
 The DB subnet group tells RDS into which subnets should the DB instances be created. (Useful For a multi-tier application not a single AZ/single-tier application)
