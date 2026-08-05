@@ -76,7 +76,7 @@ Provision an Amazon RDS MySQL database instance.
 
 <img width="957" height="185" alt="db success created" src="https://github.com/user-attachments/assets/d38f114c-afa2-4b6f-99a2-41824c506a83" />
 
-# Update inbound security rules on the RDS Security Group to allow MySQL traffic (TCP Port 3306) originating strictly from the EC2 Instance Security Group.
+### Update inbound security rules on the RDS Security Group to allow MySQL traffic (TCP Port 3306) originating strictly from the EC2 Instance Security Group.
 
 <img width="959" height="352" alt="inbound sg of rds modified" src="https://github.com/user-attachments/assets/2d9b1eea-a017-4091-b231-915d41b01554" />
 
