@@ -564,7 +564,7 @@ This validates the complete event-driven workflow rather than testing each AWS s
 
 In newer AWS accounts/configuration experiences, the EventBridge target setup includes an execution role for invoking the Lambda.
 
-This was an important implementation/debugging discovery in this project.
+This was an important implementation/debugging discovery in this project. With older console there was no explicit execution role needed for the EventBridge rule to automatically trigger the lambda function. The initial mistake was I was giving the EC2StartStopLambda role which had a LambdaStartandStop.json policy that was created for the lambda function explicitly in the EventBridge rule. It never worked because this role allows only Lambda function to assume it and allows EC2 Start/Stop + CloudWatch logs. So EventBridge rule was unable to invoke the ProtectEC2 Lambda function and I had to create a new execution role explictly for the EventBridge rule to invoke the lambda function. 
 
 ---
 
