@@ -564,7 +564,117 @@ This validates the complete event-driven workflow rather than testing each AWS s
 
 In newer AWS accounts/configuration experiences, the EventBridge target setup includes an execution role for invoking the Lambda.
 
-This was an important implementation/debugging discovery in this project. With older console there was no explicit execution role needed for the EventBridge rule to automatically trigger the lambda function. The initial mistake was I was giving the EC2StartStopLambda role which had a LambdaStartandStop.json policy that was created for the lambda function explicitly in the EventBridge rule. It never worked because this role allows only Lambda function to assume it and allows EC2 Start/Stop + CloudWatch logs. So EventBridge rule was unable to invoke the ProtectEC2 Lambda function and I had to create a new execution role explictly for the EventBridge rule to invoke the lambda function. 
+This was an important implementation/debugging discovery in this project. With older console there was no explicit execution role needed for the EventBridge rule to automatically trigger the lambda function. The initial mistake was I was giving the EC2StartStopLambda role which had a LambdaStartandStop.json policy that was created for the lambda function explicitly in the EventBridge rule. It never worked because this role allows only Lambda function to assume it and allows EC2 Start/Stop + CloudWatch logs. So EventBridge rule was unable to invoke the ProtectEC2 Lambda function and I had to create a new execution role explictly for the EventBridge rule to invoke the lambda function.
+
+# 5A. Scheduled EventBridge Rule — Automatic EC2 Stop
+
+In addition to the **event-pattern EventBridge rule** used for self-healing, this project also includes a **scheduled EventBridge rule**.
+
+The scheduled rule is configured in the AWS console with a specific **UTC time**. At that scheduled time, EventBridge automatically invokes the `Lambda_instance_stop.py` function.
+
+> **Note:** This lab uses the scheduled-time configuration available in the AWS console. The schedule is based on **UTC**, rather than manually entering a cron expression.
+
+### Scheduled automation flow
+
+```text
+Scheduled EventBridge Rule
+          │
+          │ At configured UTC time
+          ▼
+Lambda_instance_stop.py
+          │
+          │ Reads EC2_INSTANCES
+          ▼
+    EC2 Instances
+          │
+          │ Stop
+          ▼
+EC2 Instance → Stopped
+          │
+          │ EC2 state-change event
+          ▼
+EventBridge Event-Pattern Rule
+          │
+          │ Detects protected instance
+          ▼
+ProtectEC2 Lambda
+          │
+          │ start_instances()
+          ▼
+Protected EC2 Instance
+          │
+          ▼
+       Running
+```
+
+### How the two EventBridge rules work together
+
+There are **two different EventBridge rules** in this project:
+
+| EventBridge Rule                | Trigger                                        | Purpose                                                            |
+| ------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------ |
+| **Scheduled EventBridge Rule**  | Configured UTC time                            | Automatically invokes `Lambda_instance_stop.py`                    |
+| **EC2 State-Change Event Rule** | EC2 `stopped` event matching the event pattern | Detects when the protected instance stops and invokes `ProtectEC2` |
+
+The scheduled rule handles the **automatic stop**, while the event-pattern rule handles the **self-healing restart**.
+
+### Complete end-to-end workflow
+
+At the configured UTC time:
+
+```text
+1. Scheduled EventBridge rule triggers
+              ↓
+2. Lambda_instance_stop.py executes
+              ↓
+3. Lambda reads EC2_INSTANCES environment variable
+              ↓
+4. Lambda calls ec2.stop_instances()
+              ↓
+5. EC2 instances transition to Stopped
+              ↓
+6. EC2 generates an Instance State-change Notification
+              ↓
+7. Event-pattern EventBridge rule evaluates the event
+              ↓
+8. Protected instance matches:
+       state = stopped
+       AND
+       instance-id = protected instance
+              ↓
+9. ProtectEC2 Lambda is invoked
+              ↓
+10. ProtectEC2 calls ec2.start_instances()
+              ↓
+11. Protected instance transitions:
+       Stopped → Pending → Running
+```
+
+This demonstrates how a **time-based EventBridge trigger** and an **event-driven EventBridge trigger** can work together to automate and protect an EC2 instance.
+
+### Key concept
+
+The two rules have different responsibilities:
+
+```text
+                    EventBridge
+                       │
+          ┌────────────┴────────────┐
+          │                         │
+          ▼                         ▼
+   Scheduled Rule             Event Pattern Rule
+   (UTC time)                 (EC2 state change)
+          │                         │
+          ▼                         ▼
+  Stop EC2 instances        Detect protected EC2
+                                    │
+                                    ▼
+                              Start protected
+                                    │
+                                    ▼
+                                  Running
+```
+
 
 ---
 
@@ -689,3 +799,5 @@ Same as above screens create a different lambda function to manually invoke stop
 <img width="959" height="371" alt="Validation2" src="https://github.com/user-attachments/assets/429dd0e1-257d-40dd-8223-ab876f43b8e1" />
 
 <img width="959" height="349" alt="validation2a" src="https://github.com/user-attachments/assets/6d43601d-dbce-4757-92c8-b0674f844aba" />
+
+
