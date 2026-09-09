@@ -1,4 +1,4 @@
-# Self-Healing & Scheduled EC2 Automation using Amazon EventBridge and AWS Lambda
+# Automated EC2 Control using Lambda and Events - a simple Event driven architecture
 
 ## 📌 Project Overview
 
@@ -613,14 +613,79 @@ This was an important implementation/debugging discovery in this project.
 
 Add screenshots here showing:
 
-1. Lambda environment variable configuration for `EC2_INSTANCES`.
-2. Manual Lambda invocation and EC2 stop/start result.
-3. EventBridge rule configuration.
-4. Event pattern filtering for the protected instance.
-5. EventBridge target configuration.
-6. EventBridge execution role.
-7. Lambda execution role.
-8. CloudWatch/Lambda logs showing the self-healing invocation.
-9. EC2 state transition from `Stopping → Stopped → Pending → Running`.
+1. Lambda environment variable configuration for `EC2_INSTANCES`. (below image is for StartEC2 lambda function and is same as in StopEC2)
 
-These screenshots provide visual evidence of the configuration and end-to-end workflow.
+<img width="957" height="370" alt="startec2_envvariables" src="https://github.com/user-attachments/assets/a04004d4-3412-4988-beee-2d8045698f79" />
+
+2. Manual Lambda invocation and EC2 stop/start result.
+ 
+<img width="941" height="375" alt="startEC2" src="https://github.com/user-attachments/assets/e40deceb-9704-4973-9dec-dba0587b9c43" />
+
+<img width="955" height="374" alt="startec2_0" src="https://github.com/user-attachments/assets/54e8fd4a-c281-4358-996c-358ed99003fb" />
+
+<img width="959" height="355" alt="startec2_2" src="https://github.com/user-attachments/assets/609551c2-0d06-4de8-b6db-12cde1aa9dd0" />
+
+<img width="956" height="377" alt="startec2_3" src="https://github.com/user-attachments/assets/3a0a2234-4739-4d94-8afc-36aafa9a7fa3" />
+
+<img width="957" height="370" alt="startec2_envvariables" src="https://github.com/user-attachments/assets/7c769523-51a0-4864-b374-af712a0f4260" />
+
+<img width="956" height="355" alt="started_EC2" src="https://github.com/user-attachments/assets/4156b783-ee02-4c40-8e85-e7b65cf6d820" />
+
+## StopEC2
+Same as above screens create a different lambda function to manually invoke stopping of EC2 instances with a different python script for stopping the EC2 instances
+
+<img width="956" height="353" alt="stopped_ec2" src="https://github.com/user-attachments/assets/8f0c4fe4-c3cf-45e8-a9b3-a4cb83162791" />
+ 
+3. EventBridge rule configuration and Event pattern filtering for the protected instance
+
+<img width="957" height="374" alt="EBSchedule" src="https://github.com/user-attachments/assets/b44d9155-c548-4165-abd7-d5991cb564d1" />
+
+<img width="959" height="374" alt="EB1" src="https://github.com/user-attachments/assets/19af0f63-d7bc-45ca-9600-acd3ceb692db" />
+
+<img width="956" height="383" alt="Screenshot 2026-09-06 170323" src="https://github.com/user-attachments/assets/6eb7393a-bae2-499b-aae6-670417e9033b" />
+
+<img width="958" height="370" alt="Screenshot 2026-09-06 170424" src="https://github.com/user-attachments/assets/e2e06c03-3697-4a97-8a97-24bdcc6b962c" />
+
+<img width="959" height="380" alt="Screenshot 2026-09-06 170446" src="https://github.com/user-attachments/assets/b861cdec-ba01-49b2-803f-739ddd353ba7" />
+
+<img width="959" height="379" alt="Screenshot 2026-09-06 170524" src="https://github.com/user-attachments/assets/9f4ac5d5-9b84-47e2-8bbb-caf3047d58d1" />
+
+<img width="956" height="374" alt="EBTarget1" src="https://github.com/user-attachments/assets/a59ed572-a0bd-4d1c-ab40-3430512c34c1" />
+
+<img width="954" height="374" alt="EBTarget2" src="https://github.com/user-attachments/assets/8d01cfbf-b718-4515-8923-6d6f28c95aac" />
+
+4. Lambda execution role
+
+<img width="956" height="373" alt="iamRole1" src="https://github.com/user-attachments/assets/d15575d9-853a-4687-85c3-a7a572e75fa4" />
+
+<img width="956" height="373" alt="iamRole2" src="https://github.com/user-attachments/assets/cfb1ca8f-9e22-46db-8d25-05dff7de43de" />
+
+<img width="957" height="375" alt="iamRole3" src="https://github.com/user-attachments/assets/273a5594-bb7a-4143-9411-e875846cddd1" />
+
+5. EventBridge execution role:
+
+   No screenshot for this role is available so pasting in the json instead that was used by this role:
+
+   ``` json
+   {
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Effect": "Allow",
+			"Action": [
+				"lambda:InvokeFunction"
+			],
+			"Resource": [
+				"arn:aws:lambda:us-east-1:YOUR_ACCOUNT_ID:function:ProtectEC2"
+			]
+		}
+	]
+}
+
+```
+
+7. CloudWatch/Lambda logs showing the self-healing invocation.
+
+<img width="959" height="371" alt="Validation2" src="https://github.com/user-attachments/assets/429dd0e1-257d-40dd-8223-ab876f43b8e1" />
+
+<img width="959" height="349" alt="validation2a" src="https://github.com/user-attachments/assets/6d43601d-dbce-4757-92c8-b0674f844aba" />
