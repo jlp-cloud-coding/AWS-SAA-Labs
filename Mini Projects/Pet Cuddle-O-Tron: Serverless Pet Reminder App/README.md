@@ -74,6 +74,12 @@ CORS was previously enabled on the root path `/` instead of the explicit child r
 3. Saved the configuration.
 4. Redeployed the API to the `prod` stage.
 
+<img width="957" height="373" alt="Screenshot 2026-09-29 225342" src="https://github.com/user-attachments/assets/86497c13-ebf5-4b14-a5c3-6d13b2c3d67e" />
+
+<img width="948" height="371" alt="Screenshot 2026-09-29 225405" src="https://github.com/user-attachments/assets/da446ab1-b74d-450e-a842-c032a04b315a" />
+
+<img width="959" height="414" alt="Screenshot 2026-09-29 225549" src="https://github.com/user-attachments/assets/fb6d27c8-8e6b-4fcc-a44f-ea327d63a4f0" />
+
 ---
 
 ### 2. Python String Syntax Error in Lambda — `UserCodeSyntaxError`
@@ -218,12 +224,6 @@ data = event
 <img width="902" height="460" alt="Screenshot 2026-09-29 222146" src="https://github.com/user-attachments/assets/8de47964-c19d-4f54-81e5-c09cf62112d7" />
 
 * **Validation and Verification**: Email Received - Proof of the reminder arriving in the inbox.
-
-<img width="957" height="373" alt="Screenshot 2026-09-29 225342" src="https://github.com/user-attachments/assets/9d461212-a055-47bf-9c39-5d6f8359c50b" />
-
-<img width="948" height="371" alt="Screenshot 2026-09-29 225405" src="https://github.com/user-attachments/assets/f44ee834-990e-49f4-a7cc-bf26a1aaa2d5" />
-
-<img width="959" height="414" alt="Screenshot 2026-09-29 225549" src="https://github.com/user-attachments/assets/202bfd37-4757-4899-b1d4-7d2432537163" />
 
 <img width="743" height="467" alt="Screenshot 2026-09-29 230351" src="https://github.com/user-attachments/assets/9634e41b-43aa-46ff-9e2f-b062a8561de3" />
 
