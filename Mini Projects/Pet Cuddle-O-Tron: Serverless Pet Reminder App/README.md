@@ -142,9 +142,7 @@ data = event
 
 ---
 
-## 📸 Screenshots & Proof of Delivery
-
-*(Add your stage screenshots here)*
+## Screenshots
 
 * **SES Verification**: Both sender and recipient emails verified in the SES Sandbox.
 
@@ -223,7 +221,7 @@ data = event
 
 <img width="902" height="460" alt="Screenshot 2026-09-29 222146" src="https://github.com/user-attachments/assets/8de47964-c19d-4f54-81e5-c09cf62112d7" />
 
-* **Validation and Verification**: Email Received - Proof of the reminder arriving in the inbox.
+* **Validation and Verification**: Email reminder received in the inbox.
 
 <img width="743" height="467" alt="Screenshot 2026-09-29 230351" src="https://github.com/user-attachments/assets/9634e41b-43aa-46ff-9e2f-b062a8561de3" />
 
