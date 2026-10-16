@@ -32,6 +32,9 @@ Navigated to **VPC Console → Endpoints → Create endpoint** and configured th
 - Opened the EC2 Console and initiated a browser-based connection to `A4L-PrivateEC2` using the new endpoint.
 - Successfully authenticated and established an interactive SSH session with the private Amazon Linux 2023 instance.
 - Key Observation: When checking the SSH login logs on the private instance, the incoming connection IP matched the IP address of the endpoint's Elastic Network Interface (ENI) rather than my local public IP. This happens because the Preserve Client IP option was left unchecked during endpoint creation. The terminal displayed the session as `ec2-user@ip-10-16-36-216`, confirming that the connection was established.
+   - Note on Preserve Client IP
+    ---------------------------:
+     If this box was checked, AWS would forward my local computer's public IP address (which it gets from my web    browser session when I log into the AWS console) straight through to the instance, making my actual home/office IP show up in the SSH logs instead of the ENI IP.
 
 <img width="956" height="389" alt="Screenshot 2026-10-15 161544" src="https://github.com/user-attachments/assets/cfe7f933-086e-4e00-9382-46e4f59c3c00" />
 
