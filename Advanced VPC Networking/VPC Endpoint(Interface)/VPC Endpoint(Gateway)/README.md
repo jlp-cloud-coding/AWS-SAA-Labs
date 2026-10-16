@@ -57,6 +57,10 @@ Unlike Interface Endpoints, which use Elastic Network Interfaces (ENIs) with pri
 
 Traffic destined for S3 is routed through the Gateway Endpoint over the AWS network, without requiring a NAT Gateway or an internet gateway route for that traffic. **S3 Gateway Endpoints have no additional endpoint charges.**
 
+## Note: Gateway vs. Interface Endpoints for S3
+* **S3 Gateway Endpoints (What we used):** Free of charge, regional, and updates route tables directly using prefix lists. This is the AWS best-practice for standard, within- same region and same VPC private access to S3.
+* **S3 Interface Endpoints (AWS PrivateLink):** Creates ENIs with private IP addresses in your subnets. While S3 Gateway Endpoints only work within the same region, you would choose an S3 Interface Endpoint if you specifically need **cross-region** or **cross-account** or **different VPC** access to S3.
+
 ## Screenshots
 
 <img width="947" height="307" alt="Screenshot 2026-10-15 161852" src="https://github.com/user-attachments/assets/1c80c764-8610-4bd6-aa2e-9cccce06e094" />
