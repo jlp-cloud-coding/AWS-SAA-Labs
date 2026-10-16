@@ -2,6 +2,8 @@
 
 In this lab, I created an **EC2 Instance Connect Endpoint** in the private VPC `a4l-secretvpc`. This allows me to connect to a private EC2 instance using SSH without assigning it a public IPv4 address or setting up a bastion host.
 
+<img width="937" height="497" alt="Screenshot 2026-10-13 180647" src="https://github.com/user-attachments/assets/62ecd0fb-b82a-4fbd-8bb4-4777c499a0b6" />
+
 ## 🛠️ Implementation Steps
 
 ### 1. Identify the Private EC2 Instance
