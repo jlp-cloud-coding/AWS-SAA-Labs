@@ -1,6 +1,7 @@
 # CloudFormation Template - Non-portable templates and failure scenarios
 
 A hands-on lab demonstrating why static, hardcoded values in **AWS CloudFormation** templates destroy template portability, leading to deployment failures across multiple stacks and regions.
+Used this AWS template reference document as the source: https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-s3-bucket.html
 
 ---
 
