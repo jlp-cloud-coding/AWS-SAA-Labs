@@ -1,7 +1,6 @@
 # CloudFormation Template - Non-portable templates and failure scenarios
 
 A hands-on lab demonstrating why static, hardcoded values in **AWS CloudFormation** templates destroy template portability, leading to deployment failures across multiple stacks and regions.
-Used this AWS template reference document as the source: https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-s3-bucket.html
 
 ---
 
@@ -38,3 +37,12 @@ Resources:
     Properties:
       InstanceType: "t3.micro"
       ImageId: 'ami-090fa75af13c156b4' # Causes regional deployment failures
+```
+
+**Official AWS Documentation & References**
+AWS CloudFormation Resource Reference: [AWS::S3::Bucket Resource Type](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-s3-bucket.html)
+
+**Key Takeaways & Best Practices**
+Avoid Hardcoding: Never hardcode resource names or region-specific IDs in production CloudFormation templates.
+
+Leverage Parameters & Mappings: Use CloudFormation Parameters for dynamic input values, Mappings for region-specific AMI selection, and let AWS auto-generate unique physical names using features like BucketName omission or Fn::Sub.
