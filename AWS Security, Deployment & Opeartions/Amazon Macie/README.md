@@ -1,6 +1,6 @@
 # Automated PII & Sensitive Data Detection with Amazon Macie & EventBridge
 
-A hands-on implementation project demonstrating automated sensitive data discovery in Amazon S3 using **Amazon Macie**, event-driven notification routing via **Amazon EventBridge**, and email alerts delivered through **Amazon Simple Notification Service (SNS)**.
+A hands-on lab demonstrating automated sensitive data discovery in Amazon S3 using **Amazon Macie**, event-driven notification routing via **Amazon EventBridge**, and email alerts delivered through **Amazon Simple Notification Service (SNS)**.
 
 ---
 
